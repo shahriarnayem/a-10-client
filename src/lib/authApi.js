@@ -3,17 +3,13 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") || "http://l
 export async function exchangeFirebaseToken(firebaseIdToken) {
   const response = await fetch(`${API_URL}/api/auth/token`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${firebaseIdToken}`,
-    },
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${firebaseIdToken}` },
   });
- 
   const data = await response.json();
+  if (!response.ok) throw new Error(data.message || "The marketplace session could not be created.");
  
-  if (!response.ok) {
-    throw new Error(data.message || "The marketplace session could not be created.");
-  }
- 
-  return data;
+  const token = data.token || data.accessToken || data.data?.token;
+  const user = data.user || data.data?.user;
+  if (!token || !user) throw new Error("The marketplace authentication response is missing session information.");
+  return { token, user };
 }

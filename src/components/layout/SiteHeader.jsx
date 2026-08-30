@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
  
-const links = [
+const publicLinks = [
   { href: "/", label: "Home" },
   { href: "/prompts", label: "All Prompts" },
 ];
@@ -26,18 +26,13 @@ export default function SiteHeader() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
         <Link href="/" className="text-xl font-bold text-slate-950">Prompt<span className="text-cyan-600">Market</span></Link>
         <nav className="hidden items-center gap-7 md:flex">
-          {links.map((link) => <Link key={link.href} href={link.href} className="text-sm font-medium text-slate-600 hover:text-cyan-700">{link.label}</Link>)}
+          {publicLinks.map((link) => <Link key={link.href} href={link.href} className="text-sm font-medium text-slate-600 hover:text-cyan-700">{link.label}</Link>)}
           {!loading && !user && <><Link href="/login" className="text-sm font-medium text-slate-700">Login</Link><Link href="/register" className="rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white">Register</Link></>}
-          {!loading && user && <><span className="max-w-40 truncate text-sm font-medium text-slate-600">{user.displayName || user.email}</span><button type="button" onClick={handleLogout} className="rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white">Logout</button></>}
+          {!loading && user && <><Link href="/dashboard" className="text-sm font-semibold text-cyan-700">Dashboard</Link><span className="max-w-36 truncate text-sm text-slate-500">{user.displayName || user.email}</span><button type="button" onClick={handleLogout} className="rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white">Logout</button></>}
         </nav>
-        <button type="button" onClick={() => setOpen((current) => !current)} className="rounded-xl border border-slate-200 px-4 py-2 text-sm md:hidden" aria-expanded={open}>{open ? "Close menu" : "Open menu"}</button>
+        <button type="button" onClick={() => setOpen((current) => !current)} className="rounded-xl border border-slate-200 px-4 py-2 text-sm md:hidden">{open ? "Close menu" : "Open menu"}</button>
       </div>
-      {open && (
-        <nav className="space-y-2 border-t border-slate-200 px-5 py-4 md:hidden">
-          {links.map((link) => <Link key={link.href} href={link.href} onClick={() => setOpen(false)} className="block rounded-xl bg-slate-50 px-4 py-3 text-sm font-medium">{link.label}</Link>)}
-          {!user ? <><Link href="/login" onClick={() => setOpen(false)} className="block rounded-xl bg-slate-50 px-4 py-3 text-sm font-medium">Login</Link><Link href="/register" onClick={() => setOpen(false)} className="block rounded-xl bg-slate-950 px-4 py-3 text-sm font-medium text-white">Register</Link></> : <button type="button" onClick={handleLogout} className="w-full rounded-xl bg-slate-950 px-4 py-3 text-left text-sm font-medium text-white">Logout</button>}
-        </nav>
-      )}
+      {open && <nav className="space-y-2 border-t border-slate-200 px-5 py-4 md:hidden">{publicLinks.map((link) => <Link key={link.href} href={link.href} onClick={() => setOpen(false)} className="block rounded-xl bg-slate-50 px-4 py-3 text-sm font-medium">{link.label}</Link>)}{!user ? <><Link href="/login" onClick={() => setOpen(false)} className="block rounded-xl bg-slate-50 px-4 py-3 text-sm font-medium">Login</Link><Link href="/register" onClick={() => setOpen(false)} className="block rounded-xl bg-slate-950 px-4 py-3 text-sm font-medium text-white">Register</Link></> : <><Link href="/dashboard" onClick={() => setOpen(false)} className="block rounded-xl bg-cyan-50 px-4 py-3 text-sm font-semibold text-cyan-800">Dashboard</Link><button type="button" onClick={handleLogout} className="w-full rounded-xl bg-slate-950 px-4 py-3 text-left text-sm font-medium text-white">Logout</button></>}</nav>}
     </header>
   );
 }
