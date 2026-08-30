@@ -8,6 +8,7 @@ import { useAuth } from "@/context/AuthContext";
 const navigation = [
   { href: "/dashboard", label: "Workspace overview" },
   { href: "/dashboard/add-prompt", label: "Add AI prompt" },
+  { href: "/dashboard/my-prompts", label: "My prompts" },
   { href: "/prompts", label: "Explore prompts" },
 ];
  
