@@ -23,3 +23,19 @@ export function deletePrompt(promptId) {
 export function getPromptAnalytics(promptId) {
   return marketplaceRequest(`/api/prompts/${promptId}/analytics`);
 }
+ 
+export function getAllPrompts(searchParameters = {}) {
+  const query = new URLSearchParams();
+  Object.entries(searchParameters).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== "") query.set(key, value);
+  });
+  return marketplaceRequest(`/api/prompts?${query.toString()}`);
+}
+ 
+export function getPromptFilters() {
+  return marketplaceRequest("/api/prompts/filters");
+}
+ 
+export function getPromptReviews(promptId) {
+  return marketplaceRequest(`/api/prompts/${promptId}/reviews`);
+}

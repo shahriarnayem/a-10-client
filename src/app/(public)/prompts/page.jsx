@@ -1,16 +1,15 @@
+import { Suspense } from "react";
+import AllPromptsClient from "@/components/prompts/AllPromptsClient";
+ 
 export const metadata = {
-  title: "Explore AI Prompts | PromptMarket",
-  description: "Search reusable AI prompts by tool, category, and creator.",
+  title: "Explore AI Prompts",
+  description: "Discover reusable prompts for ChatGPT, Gemini, Claude, Midjourney, productivity, marketing, development, and creative work.",
 };
  
-export default function PromptsPage() {
+export default function AllPromptsPage() {
   return (
-    <main className="mx-auto min-h-[60vh] max-w-7xl px-5 py-20 sm:px-8">
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-700">Prompt discovery</p>
-      <h1 className="mt-3 text-4xl font-bold text-slate-950">Explore reusable AI prompts</h1>
-      <p className="mt-5 max-w-2xl leading-7 text-slate-600">
-        Browse moderated prompt systems for writing, research, development, marketing, design, and productivity.
-      </p>
-    </main>
+    <Suspense fallback={<p className="py-20 text-center text-slate-600">Loading AI prompt discovery…</p>}>
+      <AllPromptsClient />
+    </Suspense>
   );
 }
