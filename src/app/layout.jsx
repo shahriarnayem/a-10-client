@@ -1,18 +1,20 @@
-import './globals.css';
-
+import "./globals.css";
+import AppProviders from "@/components/providers/AppProviders";
+ 
 export const metadata = {
   title: {
-    default: 'AI Prompt Marketplace',
-    template: '%s | AI Prompt Marketplace',
+    default: "PromptMarket",
+    template: "%s | PromptMarket",
   },
-  description:
-    'Discover, share, bookmark, and manage high-quality prompts for ChatGPT, Gemini, Claude, Midjourney, and other AI tools.',
+  description: "Discover and publish reusable prompts for leading AI tools.",
 };
-
+ 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AppProviders>{children}</AppProviders>
+      </body>
     </html>
   );
 }
