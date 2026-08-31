@@ -1,4 +1,4 @@
-import PromptDetailsClient from "@/components/prompts/PromptDetailsClient";
+﻿import PromptDetailsClient from "@/components/prompts/PromptDetailsClient";
 
 export const dynamic = "force-dynamic";
 
