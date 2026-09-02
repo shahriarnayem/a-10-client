@@ -1,19 +1,28 @@
 import "./globals.css";
+
 import AppProviders from "@/components/providers/AppProviders";
- 
+
 export const metadata = {
   title: {
     default: "PromptMarket",
     template: "%s | PromptMarket",
   },
-  description: "Discover and publish reusable prompts for leading AI tools.",
+  description:
+    "Discover, publish, and manage reusable AI prompts.",
 };
- 
-export default function RootLayout({ children }) {
+
+export default function RootLayout({
+  children,
+}) {
   return (
-    <html lang="en">
-      <body>
-        <AppProviders>{children}</AppProviders>
+    <html
+      lang="en"
+      suppressHydrationWarning
+    >
+      <body suppressHydrationWarning>
+        <AppProviders>
+          {children}
+        </AppProviders>
       </body>
     </html>
   );

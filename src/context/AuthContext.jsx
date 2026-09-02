@@ -105,28 +105,51 @@ export function AuthProvider({ children }) {
     setMarketplaceUser(null);
   }
  
-  async function refreshMarketplaceSession() {
-    if (!auth.currentUser) return null;
-    setLoading(true);
-    try { return await syncMarketplaceSession(auth.currentUser); }
-    finally { setLoading(false); }
-  }
+  const refreshMarketplaceSession =
+  useCallback(async () => {
+    if (!auth.currentUser) {
+      return null;
+    }
+
+    try {
+      return await syncMarketplaceSession(
+        auth.currentUser,
+      );
+    } catch (error) {
+      setAuthError(error.message);
+      throw error;
+    }
+  }, [syncMarketplaceSession]);
  
-  const value = useMemo(() => ({
+  const value = useMemo(
+  () => ({
     user: firebaseUser,
     firebaseUser,
+
     profile: marketplaceUser,
     marketplaceUser,
+
     marketplaceToken,
     loading,
     authError,
+
     registerUser,
     loginUser,
     googleLogin,
     logoutUser,
     logOut: logoutUser,
+
     refreshMarketplaceSession,
-  }), [firebaseUser, marketplaceUser, marketplaceToken, loading, authError, syncMarketplaceSession]);
+  }),
+  [
+    firebaseUser,
+    marketplaceUser,
+    marketplaceToken,
+    loading,
+    authError,
+    refreshMarketplaceSession,
+  ],
+);
  
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
