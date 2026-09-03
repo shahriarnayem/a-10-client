@@ -261,7 +261,13 @@ function PromptDetailsContent() {
                 Prompt creator
               </p>
               <h2 className="mt-4 text-2xl font-bold text-slate-950">
-                {prompt.creatorName}
+                <Link
+  href={`/creators/${prompt.creatorId}`}
+  className="mt-4 block text-2xl font-bold text-slate-950 hover:text-cyan-700"
+>
+  {prompt.creatorName}
+</Link>
+
               </h2>
               <p className="mt-2 text-slate-600">{prompt.creatorEmail}</p>
  
