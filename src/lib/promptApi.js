@@ -113,3 +113,21 @@ export function reportPrompt(promptId, report) {
     },
   );
 }
+
+export function getPromptVersions(promptId) {
+  return marketplaceRequest(
+    `/api/prompts/${promptId}/versions`,
+  );
+}
+
+export function restorePromptVersion(
+  promptId,
+  versionId,
+) {
+  return marketplaceRequest(
+    `/api/prompts/${promptId}/versions/${versionId}/restore`,
+    {
+      method: "POST",
+    },
+  );
+}
