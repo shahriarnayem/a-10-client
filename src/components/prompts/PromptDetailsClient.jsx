@@ -106,6 +106,22 @@ function PromptDetailsContent() {
       ? "private"
       : "public");
 
+  const creatorProfileLink = prompt.creatorId
+    ? `/creators/${prompt.creatorId}`
+    : `/creators/${encodeURIComponent(prompt.creatorEmail || "")}`;
+
+  const fallbackAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+    prompt.creatorName || "Creator"
+  )}&background=0284c7&color=fff`;
+
+  const creatorPhoto =
+    prompt.creatorPhotoURL ||
+    prompt.photoURL ||
+    prompt.creatorPhoto ||
+    prompt.creatorImage ||
+    prompt.userPhoto ||
+    fallbackAvatar;
+
   return (
     <main className="bg-slate-50">
       <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
@@ -311,13 +327,33 @@ function PromptDetailsContent() {
                 Prompt creator
               </p>
 
-              <h2 className="mt-4 text-2xl font-bold text-slate-950">
-                {prompt.creatorName}
-              </h2>
-
-              <p className="mt-2 text-slate-600">
-                {prompt.creatorEmail}
-              </p>
+              <div className="mt-4 flex items-center gap-4">
+                <Link
+                  href={creatorProfileLink}
+                  className="shrink-0 transition-opacity hover:opacity-80"
+                >
+                  <img
+                    src={creatorPhoto}
+                    alt={`${prompt.creatorName || "Creator"} creator profile`}
+                    className="h-14 w-14 rounded-full border border-slate-200 object-cover"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = fallbackAvatar;
+                    }}
+                  />
+                </Link>
+                <div>
+                  <Link
+                    href={creatorProfileLink}
+                    className="text-2xl font-bold text-slate-950 transition-colors hover:text-cyan-700"
+                  >
+                    {prompt.creatorName || "Anonymous Creator"}
+                  </Link>
+                  <p className="text-sm text-slate-600">
+                    {prompt.creatorEmail}
+                  </p>
+                </div>
+              </div>
 
               <dl className="mt-7 space-y-4 border-t border-slate-200 pt-6">
                 <div className="flex justify-between gap-4">
