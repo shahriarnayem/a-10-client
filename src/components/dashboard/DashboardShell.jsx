@@ -6,6 +6,7 @@ import {
   useRouter,
 } from "next/navigation";
 import { useState } from "react";
+
 import { useAuth } from "@/context/AuthContext";
 
 const baseNavigation = [
@@ -64,6 +65,10 @@ export default function DashboardShell({
           {
             href: "/dashboard/admin",
             label: "Administration",
+          },
+          {
+            href: "/dashboard/admin/audit",
+            label: "Audit log",
           },
         ]
       : []),
