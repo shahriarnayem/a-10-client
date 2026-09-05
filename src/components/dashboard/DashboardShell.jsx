@@ -30,6 +30,10 @@ const baseNavigation = [
     label: "Collections",
   },
   {
+    href: "/dashboard/feed",
+    label: "Following feed",
+  },
+  {
     href: "/dashboard/notifications",
     label: "Notifications",
   },
